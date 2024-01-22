@@ -1,0 +1,16 @@
+.header {
+  text-align: center;
+  padding: 2rem;
+}
+/* .container {
+  display: flex;
+  justify-content: space-evenly;
+} */
+ul li {
+  display: inline;
+}
+a {
+  text-decoration: none;
+  display: inline;
+  list-style: none;
+}
