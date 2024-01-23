@@ -1,6 +1,6 @@
 body {
   display: grid;
-  height: 150vh;
+  /* height: 150vh; */
   grid-template-rows: auto 1fr auto;
   font-family: "Kalam", cursive;
   font-family: "Markazi Text", serif;

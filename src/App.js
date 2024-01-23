@@ -1,5 +1,4 @@
 import "./App.css";
-import "./Styles.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import BookingPage from "./components/BookingPage";

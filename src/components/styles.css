@@ -1,0 +1,33 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 20px;
+  color: #aaa;
+}
+/* .outer-container {
+  width: 100%;
+} */
+.container {
+  max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+}
+a {
+  text-decoration: none;
+  margin-right: 70px;
+  color: #000;
+}
+.reservation-background {
+  background-color: #495e49;
+}
+nav {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.bgcolor {
+  background-color: rgb(232, 232, 232);
+}
