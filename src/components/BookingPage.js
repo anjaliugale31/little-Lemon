@@ -1,19 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../common/Button";
 
-const BookingPage = () => {
+const BookingPage = ({ availableTimes, dispatch }) => {
+  const [date, setDate] = useState("");
+  const [timeValue, setTimeValue] = useState("17:00");
+  const [guests, setGuests] = useState(1);
+  const [occasion, setOccasion] = useState("Birthday");
+
+  const handleDateChange = (e) => {
+    dispatch({ type: "UPDATE_TIMES", payload: e.target.value });
+    // setDate(e.target.value);
+  };
+  const handleTimeChange = (e) => {
+    setTimeValue(e.target.value);
+  };
+  const handleGustsChange = (e) => {
+    setGuests(parseInt(e.target.value, 10));
+  };
+  const handleOccasion = (e) => {
+    setOccasion(e.target.value);
+  };
   return (
     <BookingContainer>
       <div className="container">
         <div className="row">
           <div className="col-lg-12 col-md-12">
+            <h1 style={{ color: "#495e49", marginBottom: "30px" }}>
+              Reservation Table
+            </h1>
             <form>
               <label for="res-date">Choose Date</label>&nbsp;&nbsp;&nbsp;
-              <input type="date" id="res-date" />
+              <input
+                type="date"
+                id="res-date"
+                value={date}
+                onChange={handleDateChange}
+              />
               <br />
               <label for="res-time">Choose Time</label>&nbsp;&nbsp;&nbsp;
-              <select id="res-time">
+              <select
+                id="res-time"
+                value={timeValue}
+                onChange={handleTimeChange}
+              >
                 <option>17:00</option>
                 <option>18:00</option>
                 <option>19:00</option>
@@ -29,10 +59,12 @@ const BookingPage = () => {
                 min="1"
                 max="10"
                 id="guests"
+                value={guests}
+                onChange={handleGustsChange}
               />
               <br />
               <label for="occasion">Occasion</label>&nbsp;&nbsp;&nbsp;
-              <select id="occasion">
+              <select id="occasion" value={occasion} onChange={handleOccasion}>
                 <option>Birthday</option>
                 <option>Anniversary</option>
               </select>

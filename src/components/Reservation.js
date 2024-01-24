@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useReducer } from "react";
 import styled from "styled-components";
 import ReservationIcon from "../theme/images/restauranfood.jpg";
 import Button from "../common/Button";
 import { useNavigate } from "react-router-dom";
+import BookingPage from "./BookingPage";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "UPDATE_TIME":
+      return ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
+    default:
+      return state;
+  }
+};
+const initializeTimes = () => [
+  "17:00",
+  "18:00",
+  "19:00",
+  "20:00",
+  "21:00",
+  "22:00",
+];
 const Reservation = () => {
+  const [availableTimes, dispatch] = useReducer(reducer, [], initializeTimes);
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -45,6 +64,9 @@ const Reservation = () => {
           </div>
         </div>
       </div>
+      {window.location.pathname === "/booking" && (
+        <BookingPage availableTimes={availableTimes} dispatch={dispatch} />
+      )}
     </ReservationConatiner>
   );
 };
