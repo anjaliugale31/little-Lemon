@@ -2,7 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import ReservationIcon from "../theme/images/restauranfood.jpg";
 import Button from "../common/Button";
+import { useNavigate } from "react-router-dom";
 const Reservation = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/booking");
+  };
   return (
     <ReservationConatiner>
       <div className="container">
@@ -21,7 +27,11 @@ const Reservation = () => {
               can pay and get your order from a window. These places are called
               drive-throughs.
             </section>
-            <Button type="submit" style={{ marginTop: "0px" }}>
+            <Button
+              type="submit"
+              style={{ marginTop: "0px" }}
+              onClick={handleClick}
+            >
               Reserve a Table
             </Button>
           </div>
