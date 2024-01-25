@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className="outer-container">
       <div className="container">
-        <Header />
+        <Header data-testid="header-component" />
       </div>
       <div className="row w-100 bgcolor">
         <Reservation />
