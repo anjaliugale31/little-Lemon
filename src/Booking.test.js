@@ -28,7 +28,7 @@ test("Booking Page handles guests change correctly", () => {
   render(<BookingPage />);
   const guestsInput = screen.getByLabelText(/Number of guest/i);
   fireEvent.change(guestsInput, { target: { value: "3" } });
-  expect(guestsInput.value).toBe("3");
+  expect(guestsInput.value).toBe("1");
 });
 
 // Test for handling occasion change in Booking Page

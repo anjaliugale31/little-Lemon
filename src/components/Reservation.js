@@ -46,11 +46,7 @@ const Reservation = () => {
               can pay and get your order from a window. These places are called
               drive-throughs.
             </section>
-            <Button
-              type="submit"
-              style={{ marginTop: "0px" }}
-              onClick={handleClick}
-            >
+            <Button type="submit" onClick={handleClick}>
               Reserve a Table
             </Button>
           </div>

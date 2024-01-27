@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 // import {
 //   fetchAPI,
 //   submitAPI,
 // } from "https://raw.githubusercontent.com/Meta-Front-End-Developer-PC/capstone/master/api.js";
 
+const FormDataValidationSchema = Yup.object({
+  date: Yup.string().required("Select date!"),
+  timeValue: Yup.string().required("Select time!"),
+  guests: Yup.string().required("Select How Many guest users are allowed to!"),
+  occasion: Yup.string().required("Select occasion!"),
+});
 const BookingPage = ({ availableTimes, dispatch }) => {
   const [date, setDate] = useState("");
   const [timeValue, setTimeValue] = useState("17:00");
@@ -15,40 +23,47 @@ const BookingPage = ({ availableTimes, dispatch }) => {
   const navigate = useNavigate();
 
   const handleDateChange = (e) => {
-    // dispatch({ type: "UPDATE_TIMES", payload: e.target.value });
-    setDate(e.target.value);
+    dispatch({ type: "UPDATE_TIMES", payload: e.target.value });
+    // setDate(e.target.value);
+    setFieldValue("date", e.target.value);
   };
   const handleTimeChange = (e) => {
-    setTimeValue(e.target.value);
+    // setTimeValue(e.target.value);
+    setFieldValue("timeValue", e.target.value);
   };
   const handleGustsChange = (e) => {
-    setGuests(parseInt(e.target.value, 10));
+    // setGuests(parseInt(e.target.value, 10));
+    setFieldValue("timeValue", e.target.value);
   };
   const handleOccasion = (e) => {
-    setOccasion(e.target.value);
+    // setOccasion(e.target.value);
+    setFieldValue("occasion", e.target.value);
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("form submission");
-    const formData = {
-      date,
-      time: timeValue,
-      guests,
-      occasion,
-    };
-    navigate("/confirmed-booking");
-    // try {
-    //   const isBookingSuccessful = await submitAPI(formData);
-    //   if (isBookingSuccessful) {
-    //     console.log("Booking successful!");
-    //   } else {
-    //     console.log("Booking failed.");
-    //   }
-    // } catch (error) {
-    //   console.error("Error submitting booking:", error);
-    // }
-    console.log("formData", formData);
-  };
+
+  const { values, handleSubmit, errors, setFieldValue } = useFormik({
+    initialValues: { date: "", timeValue: "", guests: "1", occasion: "" },
+    validationSchema: FormDataValidationSchema,
+    onSubmit: async () => {
+      const formData = {
+        date,
+        time: timeValue,
+        guests,
+        occasion,
+      };
+      try {
+        // const isBookingSuccessful = await submitAPI(formData);
+        // if (isBookingSuccessful) {
+        //   console.log("Booking successful!");
+        //   navigate("/confirmed-booking");
+        // } else {
+        //   console.log("Booking failed.");
+        // }
+      } catch (error) {
+        console.error("Error submitting booking:", error);
+      }
+    },
+  });
+
   return (
     <BookingContainer>
       <div className="container">
@@ -62,15 +77,19 @@ const BookingPage = ({ availableTimes, dispatch }) => {
               <input
                 type="date"
                 id="res-date"
-                value={date}
+                value={values.date}
                 onChange={handleDateChange}
+                required
               />
+              {errors.date ? <p className="form-error">{errors.date}</p> : null}
               <br />
               <label htmlFor="res-time">Choose Time</label>&nbsp;&nbsp;&nbsp;
               <select
+                type="select-one"
                 id="res-time"
-                value={timeValue}
+                value={values.timeValue}
                 onChange={handleTimeChange}
+                required
               >
                 <option>17:00</option>
                 <option>18:00</option>
@@ -79,6 +98,9 @@ const BookingPage = ({ availableTimes, dispatch }) => {
                 <option>21:00</option>
                 <option>22:00</option>
               </select>
+              {errors.timeValue ? (
+                <p className="form-error">{errors.timeValue}</p>
+              ) : null}
               <br />
               <label htmlFor="guests"> Number of guest</label>&nbsp;&nbsp;&nbsp;
               <input
@@ -87,12 +109,19 @@ const BookingPage = ({ availableTimes, dispatch }) => {
                 min="1"
                 max="10"
                 id="guests"
-                value={guests}
+                value={values.guests}
                 onChange={handleGustsChange}
               />
               <br />
+              {errors.guests ? (
+                <p className="form-error">{errors.guests}</p>
+              ) : null}
               <label htmlFor="occasion">Occasion</label>&nbsp;&nbsp;&nbsp;
-              <select id="occasion" value={occasion} onChange={handleOccasion}>
+              <select
+                id="occasion"
+                value={values.occasion}
+                onChange={handleOccasion}
+              >
                 <option>Birthday</option>
                 <option>Anniversary</option>
               </select>
@@ -104,7 +133,6 @@ const BookingPage = ({ availableTimes, dispatch }) => {
               >
                 Make your Reservation
               </button>
-              {/* <input type="submit" value="Make Your reservation" /> */}
             </form>
           </div>
         </div>
@@ -118,6 +146,9 @@ const BookingContainer = styled.div`
   color: black;
   padding: 100px;
   text-align: left;
+  .form-error {
+    color: red;
+  }
   select {
     margin-bottom: 20px;
   }

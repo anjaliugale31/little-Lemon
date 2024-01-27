@@ -9,7 +9,16 @@ import Start from "../theme/images/rating-star.jpg";
 const Rating = () => {
   return (
     <>
-      <h3>Rating</h3>
+      <h3
+        style={{
+          textAlign: "center",
+          marginTop: "30px",
+          fontWeight: "bold",
+          color: "black",
+        }}
+      >
+        Rating
+      </h3>
       <RatingContainer>
         <div className="grid-item">
           {[...Array(5)].map((star, index) => (
@@ -67,7 +76,7 @@ const RatingContainer = styled.div`
   display: grid;
   grid-template-columns: auto auto auto auto;
   column-gap: 25px;
-  padding: 75px;
+  padding: 43px;
   text-align: center;
   grid-template-columns: repeat(4, 1fr);
   .grid-item {
